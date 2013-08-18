@@ -73,7 +73,7 @@ autorestart=true
 
 rq_supervisor = """### Generated via Fabric on ${ACTION_DATE}
 # rq configuration for ${NAME}
-[program:${KEY}-celery]
+[program:${KEY}-rq]
 
 command=${PROJECT_ENV}/bin/rqworker
 
