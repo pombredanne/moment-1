@@ -4,7 +4,7 @@ from fabric.api import env
 
 env.use_ssh_config = True
 env.forward_agent = True
-env.user = ''
+env.user = 'moment'
 env.roledefs = {
     'web': ['']
 }
@@ -26,6 +26,7 @@ MACHINE = {
     'DIR_SSL': '/srv/ssl',
     'DIR_LOGS': '/srv/logs',
     'DATABASES': ['redis'],
+    'KEY': KEY,
     'ACTION_DATE': datetime.datetime.now()
 }
 
@@ -49,5 +50,6 @@ PROJECT = {
         'REDIS_ACCESS': MACHINE['DIR_LOGS'] + '/' + KEY + '_redis_access.log',
         'REDIS_ERROR': MACHINE['DIR_LOGS'] + '/' + KEY + '_redis_error.log',
     },
+    'KEY': KEY,
     'ACTION_DATE': datetime.datetime.now()
 }
