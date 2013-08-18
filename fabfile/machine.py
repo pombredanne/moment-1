@@ -1,5 +1,5 @@
 import cuisine
-from fabric.api import task, roles, run, sudo, cd, local
+from fabric.api import task, roles, run, sudo, cd, local, lcd
 from fabric.contrib.files import uncomment
 from utilities import notify
 from conf import MACHINE, KEY
@@ -16,6 +16,13 @@ def new():
 @roles('web')
 def delete():
     local('')
+
+@task
+@roles('web')
+def configure_user():
+    notify('Configuring user.')
+    sudo('adduser moment', user='root')
+    sudo('usermod -a -G sudo moment', user='root')
 
 
 @task
@@ -61,8 +68,8 @@ def locale_conf():
 def hosts_conf():
     notify('Writing hostname and hosts files.')
     cuisine.mode_sudo()
-    run('echo "{NAME}" > /etc/hostname'.format(NAME=MACHINE['KEY']))
-    run('hostname -F /etc/hostname')
+    sudo('echo "{NAME}" > /etc/hostname'.format(NAME=MACHINE['KEY']))
+    sudo('hostname -F /etc/hostname')
     hosts = cuisine.text_template(templates.hosts, MACHINE)
     cuisine.file_append('/etc/hosts', hosts)
 
@@ -102,6 +109,8 @@ def package_conf(databases=MACHINE['DATABASES']):
     cuisine.package_ensure('cmake')
     cuisine.package_ensure('build-essential')
     cuisine.package_ensure('checkinstall')
+    cuisine.package_ensure('imagemagick')
+    cuisine.package_ensure('graphicsmagick-imagemagick-compat')
     cuisine.package_ensure('libxml2-dev')
     cuisine.package_ensure('libjpeg8-dev')
     cuisine.package_ensure('libpng-dev')
@@ -126,6 +135,8 @@ def package_conf(databases=MACHINE['DATABASES']):
             cuisine.package_ensure('redis-server')
 
 
+@task
+@roles('web')
 def nonmanaged_package_conf():
     notify('Installing required non-managed packages.')
 
@@ -133,24 +144,23 @@ def nonmanaged_package_conf():
     cuisine.mode_sudo()
     cuisine.dir_ensure(MACHINE['DIR_USER_HOME'])
     with cd(MACHINE['DIR_USER_HOME']):
-        sudo('wget -N https://phantomjs.googlecode.com/files/phantomjs-1.9.1-linux-x86_64.tar.bz2')
-        sudo('tar xzvf phantomjs-1.9.1-linux-x86_64.tar.bz2')
-        with cd('phantomjs-1.9.1-linux-x86_64'):
+        sudo('wget -N https://phantomjs.googlecode.com/files/phantomjs-1.9.1-linux-x86_64.tar.bz2 -O phantomjs.tar.bz2')
+        sudo('tar jxvf phantomjs.tar.bz2')
+        with cd('phantomjs-*'):
             cuisine.file_link(
-                MACHINE['DIR_USER_HOME'] + 'phantomjs-1.9.1-linux-x86_64/bin/phantomjs',
-                '/usr/local/bin/phantomjs', symbolic=True)
+                MACHINE['DIR_USER_HOME'] + '/phantomjs-1.9.1-linux-x86_64/bin/phantomjs',
+                '/usr/bin/phantomjs', symbolic=True)
 
     notify('Installing CasperJS')
     cuisine.mode_sudo()
     cuisine.dir_ensure(MACHINE['DIR_USER_HOME'])
     with cd(MACHINE['DIR_USER_HOME']):
-        sudo('wget -N https://github.com/n1k0/casperjs/tarball/1.0.3')
-        sudo('tar xzvf n1k0-casperjs-1.0.3-0-g76fc831.tar.gz')
-        with cd('n1k0-casperjs-1.0.3-0-g76fc831'):
+        sudo('wget -N https://codeload.github.com/n1k0/casperjs/legacy.tar.gz/1.0.3  -O casperjs.tar.bz2')
+        sudo('tar xzvf casperjs.tar.bz2')
+        with cd('n1k0-casperjs-*'):
             cuisine.file_link(
-                MACHINE['DIR_USER_HOME'] + 'n1k0-casperjs-1.0.3-0-g76fc831.tar.gz/bin/casperjs',
-                '/usr/local/bin/casperjs', symbolic=True)
-
+                MACHINE['DIR_USER_HOME'] + '/n1k0-casperjs-76fc831/bin/casperjs',
+                '/usr/bin/casperjs', symbolic=True)
 
 def python_package_conf():
     notify('Installing required system python packages.')
@@ -185,6 +195,7 @@ def profile_conf():
 
 def firewall_conf():
     sudo('ufw default deny')
+    sudo('ufw allow 22')
     sudo('ufw allow 80')
     sudo('ufw allow 443')
     sudo('ufw allow 587')
@@ -201,5 +212,13 @@ def link_conf():
     cuisine.file_link('/usr/lib/x86_64-linux-gnu/liblcms.so', '/usr/lib/liblcms.so', symbolic=True)
 
 
+@task
+@roles('web')
+def command(command):
+    sudo(command)
+
+
+@task
+@roles('web')
 def reboot():
     sudo('reboot')
