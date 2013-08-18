@@ -28,15 +28,15 @@ def get_capture():
 
         return jsonify({"error": "A valid URL is required."})
 
-    user = models.User(request_args=request.args)
+    user = models.User(request.args)
 
     if not user.is_valid:
 
         return jsonify({"error": "Either the USER or TOKEN is invalid."})
 
-    capture = models.Capture(request_args=request.args)
+    capture = models.Capture(request.args)
 
-    image = redis.get(capture.key())
+    image = redis.get(capture.get_key())
 
     if image:
 
@@ -44,8 +44,6 @@ def get_capture():
 
     image = capture.capture()
 
-    capture.arguments['image'] = image
-
-    q.enqueue(models.q_capture_put, **capture.arguments)
+    q.enqueue(models.q_capture_put, image, **capture.arguments)
 
     return send_file(image)
