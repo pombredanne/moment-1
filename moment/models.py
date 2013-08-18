@@ -55,7 +55,7 @@ class Model(object):
         if self.kwargs:
 
             arguments.update(
-                {k: self.kwargs[k] for k in self.fields_as_dict})
+                {k: self.kwargs[k] for k in self.fields_as_dict if k in self.kwargs})
 
         if self.request_params:
 
@@ -151,6 +151,7 @@ class Capture(Model):
         ('thumb', ''),  # '250,250'
         ('crop', ''),  # 'x,y,square'
         ('unique', ''),  # 'any_unique_string' [e.g.] '2013-03-28T11:27:48.571Z'
+        ('image', ''),  # 'path_to_image'
     )
     viewport_keywords = [
         {
