@@ -89,5 +89,8 @@ autorestart=true
 production_settings = """### Generated via Fabric on ${ACTION_DATE}
 from openbudget.settings.base import *
 
+PHANTOM = '/usr/bin/phantomjs'
+
+CASPER = '/usr/bin/casperjs'
 
 """
