@@ -30,7 +30,7 @@ def get_capture():
 
     user = models.User(request.args)
 
-    if not user.is_valid:
+    if not user.is_valid():
 
         return jsonify({"error": "Either the USER or TOKEN is invalid."})
 

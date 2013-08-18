@@ -120,7 +120,9 @@ class User(Model):
     def is_valid(self):
         """Will return truthy or falsy on either key or token"""
 
-        validity = redis.hget(self.arguments['key'], 'token')
+        key = self.prefix + self.request_params['user']
+
+        validity = redis.hget(key, 'token')
 
         return validity
 
@@ -151,7 +153,7 @@ class Capture(Model):
         ('thumb', ''),  # '250,250'
         ('crop', ''),  # 'x,y,square'
         ('unique', ''),  # 'any_unique_string' [e.g.] '2013-03-28T11:27:48.571Z'
-        ('image', ''),  # 'path_to_image'
+        ('delay', '300'),  # 'int' [e.g.] '300' - wait for capture
     )
     viewport_keywords = [
         {
@@ -189,10 +191,8 @@ class Capture(Model):
 
             return self.arguments['key']
 
-        else:
-
-            key = self.prefix + hashlib.md5(
-                json.dumps(self.arguments, sort_keys=True)).hexdigest()
+        key = self.prefix + hashlib.md5(
+            json.dumps(self.arguments, sort_keys=True)).hexdigest()
 
         return key
 
@@ -225,7 +225,7 @@ class Capture(Model):
             return image
 
 
-def q_capture_put(image, **kwargs):
+def q_capture_put(image=None, **kwargs):
     """Wraps the capture.put() method for later execution on a q."""
 
     capture = Capture(**kwargs)
