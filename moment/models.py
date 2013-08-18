@@ -207,10 +207,22 @@ class Capture(Model):
         params = [conf.CASPER, conf.CAPTURE_SCRIPT, self.arguments['url'],
                   image, self.arguments['viewport'], self.arguments['target']]
 
+        # doing a bunch of logging to help debug
+        logging.warning('filename: ' + filename)
+        logging.warning('image: ' + image)
+        logging.warning('capser loc: ' + conf.CASPER)
+        logging.warning('capser script: ' + conf.CAPTURE_SCRIPT)
+        logging.warning('self arguments::: ')
+        logging.warning(self.arguments)
+
         casper = subprocess.Popen(params, stdout=subprocess.PIPE,
                                   stderr=subprocess.PIPE)
 
         casper_output, casper_errors = casper.communicate()
+
+        logging.warning('casper output: ' + casper_output)
+        logging.warning('casper errors: ' + casper_errors)
+        logging.warning('casper return code: ' + casper.returncode)
 
         if casper.returncode:
 
