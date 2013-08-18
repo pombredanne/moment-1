@@ -217,10 +217,9 @@ class Capture(Model):
 
         casper_output, casper_errors = casper.communicate()
 
-        logging.info('casper_output: ' + casper_output)
-        logging.info('casper_errors: ' + casper_errors)
-        logging.info('returncode: ' + unicode(casper.returncode) +
-                        '(' + type(casper.returncode) + ')')
+        logging.info(casper_output)
+        logging.info(casper_errors)
+        logging.info(casper.returncode)
 
         # Here we are relying on convention:
         # If success, subprocess.returncode == 0
