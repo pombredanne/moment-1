@@ -55,17 +55,13 @@ server {
 
 gunicorn_supervisor = """; Generated via Fabric on ${ACTION_DATE}
 ; gunicorn configuration for ${NAME}
-; usually would pass logs on gunicorn, but it errors:
-; --access-logfile ${ACCESS_LOG} --error-logfile ${ERROR_LOG}
-
 [program:${KEY}-gunicorn]
 
-command=${PROJECT_ENV}/bin/gunicorn --bind ${APP_LOCATION}:${APP_PORT} --timeout ${APP_TIMEOUT} --workers ${APP_WORKERS} ${APP_WSGI}
+command=${PROJECT_ENV}/bin/gunicorn ${APP_WSGI} --debug --bind ${APP_LOCATION}:${APP_PORT} --workers ${APP_WORKERS} --timeout ${APP_TIMEOUT} --access-logfile ${ACCESS_LOG} --error-logfile ${ERROR_LOG}
 
 environment=PATH="${PROJECT_ENV}/bin"
 directory=${PROJECT_ROOT}
 user=${KEY}
-redirect_stderr=true
 autostart=true
 autorestart=true
 """
