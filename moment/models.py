@@ -197,7 +197,12 @@ class Capture(Model):
         return key
 
     def capture(self):
-        """Make a capture according to the passed arguments."""
+        """Make a capture according to the passed arguments.
+
+        Doing some extra logging here to help with later analysis of any probs
+        that might come from the subprocess.
+
+        """
 
         filename = '{key}.{format}'.format(key=self.get_key().lstrip(self.prefix),
                                           format=self.arguments['format'])
@@ -207,32 +212,23 @@ class Capture(Model):
         params = [conf.CASPER, conf.CAPTURE_SCRIPT, self.arguments['url'],
                   image, self.arguments['viewport'], self.arguments['target']]
 
-        # doing a bunch of logging to help debug
-        logging.warning('filename: ' + filename)
-        logging.warning('image: ' + image)
-        logging.warning('capser loc: ' + conf.CASPER)
-        logging.warning('capser script: ' + conf.CAPTURE_SCRIPT)
-        logging.warning('self arguments::: ')
-        logging.warning(self.arguments)
-
         casper = subprocess.Popen(params, stdout=subprocess.PIPE,
                                   stderr=subprocess.PIPE)
 
         casper_output, casper_errors = casper.communicate()
 
-        logging.warning('casper output: ' + casper_output)
-        logging.warning('casper errors: ' + casper_errors)
-        logging.warning('casper return code: ' + casper.returncode)
+        logging.warning('casper_output: ' + casper_output)
+        logging.warning('casper_errors: ' + casper_errors)
+        logging.warning('returncode: ' + casper.returncode)
 
+        # Here we are relying on convention:
+        # If success, subprocess.returncode == 0
+        # This could be fragile, need to investigate.
         if casper.returncode:
-
-            logging.error('Capture error: ' + casper_errors)
 
             raise Exception(casper_errors)
 
         else:
-
-            logging.info('Capture success: ' + casper_output)
 
             return image
 
