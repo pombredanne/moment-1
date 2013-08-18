@@ -113,8 +113,7 @@ def ensure_dependencies():
 @roles('web')
 def install_pip():
     with prefix(WORKON):
-        run('pip install -U -r requirements/base.txt')
-        run('pip install -U -r requirements/deploy.txt')
+        run('pip install -U -r requirements.txt')
         run(DEACTIVATE)
 
 
@@ -132,7 +131,7 @@ def ensure_production_settings():
     context = SENSITIVE
     cuisine.mode_sudo()
     content = cuisine.text_template(templates.production_settings, context)
-    cuisine.file_write(PROJECT['ROOT'] + '/openbudget/settings/production.py',
+    cuisine.file_write(PROJECT['ROOT'] + '/moment/conf/production.py',
                        content)
     restart()
 
@@ -190,7 +189,7 @@ def ensure_gunicorn():
 @task
 @roles('web')
 def ensure_rq():
-    notify('Configuring celery.')
+    notify('Configuring RQ.')
     context = {
         'ACTION_DATE': MACHINE['ACTION_DATE'],
         'NAME': PROJECT['NAME'],
