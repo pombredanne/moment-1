@@ -87,7 +87,7 @@ autorestart=true
 
 
 production_settings = """### Generated via Fabric on ${ACTION_DATE}
-from openbudget.settings.base import *
+from moment.conf import *
 
 PHANTOM = '/usr/bin/phantomjs'
 
