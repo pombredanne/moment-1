@@ -36,12 +36,12 @@ CAPTURE_SCRIPT = os.path.join(APP_ROOT, 'capture.js')
 # if we are on production, we should have a conf.production module to load.
 # conf.production is generated via fabric for production environments.
 try:
-    from production import *
+    from . import production
 except ImportError:
     # if we are on local, we accept overrides in a conf.local module.
     # For safety, we only try to load conf.local if conf.production
     # does not exist.
     try:
-        from local import *
+        from . import local
     except ImportError:
         pass
