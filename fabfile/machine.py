@@ -35,9 +35,9 @@ def bootstrap():
     apt_upgrade()
     hosts_conf()
     dir_conf()
-    package_conf()
-    nonmanaged_package_conf()
-    python_package_conf()
+    apt_packages()
+    custom_packages()
+    pip_packages()
     profile_conf()
     firewall_conf()
     link_conf()
@@ -97,7 +97,7 @@ def dir_conf():
                owner=KEY, group=MACHINE['OWNER_GROUP'])
 
 
-def package_conf(databases=MACHINE['DATABASES']):
+def apt_packages(databases=MACHINE['DATABASES']):
     notify('Installing all required system packages.')
     cuisine.package_ensure('ufw')
     cuisine.package_ensure('supervisor')
@@ -137,8 +137,8 @@ def package_conf(databases=MACHINE['DATABASES']):
 
 @task
 @roles('web')
-def nonmanaged_package_conf():
-    notify('Installing required non-managed packages.')
+def custom_packages():
+    notify('Installing custom packages.')
 
     notify('Installing PhantomJS')
     cuisine.mode_sudo()
@@ -146,10 +146,9 @@ def nonmanaged_package_conf():
     with cd(MACHINE['DIR_USER_HOME']):
         sudo('wget -N https://phantomjs.googlecode.com/files/phantomjs-1.9.1-linux-x86_64.tar.bz2 -O phantomjs.tar.bz2')
         sudo('tar jxvf phantomjs.tar.bz2')
-        with cd('phantomjs-*'):
-            cuisine.file_link(
-                MACHINE['DIR_USER_HOME'] + '/phantomjs-1.9.1-linux-x86_64/bin/phantomjs',
-                '/usr/bin/phantomjs', symbolic=True)
+        sudo('mv phantomjs-1.9.1-linux-x86_64 /etc/phantomjs')
+        cuisine.file_link('/etc/phantomjs/bin/phantomjs',
+                          '/usr/bin/phantomjs', symbolic=True)
 
     notify('Installing CasperJS')
     cuisine.mode_sudo()
@@ -157,12 +156,11 @@ def nonmanaged_package_conf():
     with cd(MACHINE['DIR_USER_HOME']):
         sudo('wget -N https://codeload.github.com/n1k0/casperjs/legacy.tar.gz/1.0.3  -O casperjs.tar.bz2')
         sudo('tar xzvf casperjs.tar.bz2')
-        with cd('n1k0-casperjs-*'):
-            cuisine.file_link(
-                MACHINE['DIR_USER_HOME'] + '/n1k0-casperjs-76fc831/bin/casperjs',
-                '/usr/bin/casperjs', symbolic=True)
+        sudo('mv n1k0-casperjs-76fc831 /etc/casperjs')
+        cuisine.file_link('/etc/casperjs/bin/casperjs',
+                          '/usr/bin/casperjs', symbolic=True)
 
-def python_package_conf():
+def pip_packages():
     notify('Installing required system python packages.')
     cuisine.mode_sudo()
     cuisine.python_package_ensure('virtualenv')
