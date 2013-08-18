@@ -7,3 +7,4 @@
 *.pyc
 moment/conf/production.py
 moment/conf/local.py
+fabfile/sensitive.py

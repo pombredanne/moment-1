@@ -1,5 +1,6 @@
-fabric
 flask
 redis
 rq
 gunicorn
+fabric
+cuisine
