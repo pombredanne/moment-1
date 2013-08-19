@@ -83,11 +83,11 @@ Setting up an instance
 
 * Make sure you have Python_, CasperJS_, PhantomJS_ and Redis_ available on your system
 * Create a virtualenv called **moment**, in your preferred way
-* Clone the repo into your project folder: e.g: 'git clone git@github.com:pwalsh/moment.git .'
-* Install the pip-managed requirements: 'pip install -r -U requirements.txt'
-* Run the server. You can run Flask's development server for debugging with: 'python dev.py' from the project root. Alternatively, Run Gunicorn with 'gunicorn moment:app'
-* Visit 127.0.0.1:9000 in your browser
-* Currently, only the /capture/ endpoint is implemented. This is a convenience endpoint that any user can hit with a set of parameters, and have a file returned. See examples above for how to construct a query to /capture/
+* Clone the repo into your project folder: e.g: ``git clone git@github.com:pwalsh/moment.git``.
+* Install the pip-managed requirements: ``pip install -r -U requirements.txt``
+* Run the server. You can run Flask's development server for debugging with: ``python dev.py`` from the project root. Alternatively, Run Gunicorn with ``gunicorn moment:app``
+* Visit 127.0.0.1:9000 in your browser.
+* Currently, only the /capture/ endpoint is implemented. This is a convenience endpoint that any user can hit with a set of parameters, and have a file returned. See examples above for how to construct a query to /capture.
 
 Create a user
 -------------
@@ -105,7 +105,6 @@ create_user returns a tuple of the user's key and token.
 The user's key is of the format "moment,user,UUID"
 
 On the /capture/ endpoint, you only use the UUID part of the user's key for the ?user parameter.
-
 
 
 .. _Python: http://python.org/download/releases/2.7.5/

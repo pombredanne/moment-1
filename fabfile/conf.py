@@ -6,7 +6,7 @@ env.use_ssh_config = True
 env.forward_agent = True
 env.user = 'moment'
 env.roledefs = {
-    'web': ['']
+    'web': ['212.71.251.102']
 }
 
 KEY = env.user
