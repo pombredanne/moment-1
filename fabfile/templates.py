@@ -57,7 +57,7 @@ gunicorn_supervisor = """; Generated via Fabric on ${ACTION_DATE}
 ; gunicorn configuration for ${NAME}
 [program:${KEY}-gunicorn]
 
-command=${PROJECT_ENV}/bin/gunicorn ${APP_WSGI} --debug --bind ${APP_LOCATION}:${APP_PORT} --workers ${APP_WORKERS} --timeout ${APP_TIMEOUT} --access-logfile ${ACCESS_LOG} --error-logfile ${ERROR_LOG}
+command=${PROJECT_ENV}/bin/gunicorn ${APP_WSGI} --debug ${APP_DEBUG} --bind ${APP_LOCATION}:${APP_PORT} --workers ${APP_WORKERS} --timeout ${APP_TIMEOUT} --access-logfile ${ACCESS_LOG} --error-logfile ${ERROR_LOG}
 
 environment=PATH="${PROJECT_ENV}/bin"
 directory=${PROJECT_ROOT}
