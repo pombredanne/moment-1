@@ -115,7 +115,9 @@ class User(Model):
             for k, v in update_values:
                 redis.hset(key, k, v)
 
-        return key
+            token = redis.hget(key, 'token')
+
+        return key, token
 
     def is_valid(self):
         """Will return truthy or falsy on either key or token"""
