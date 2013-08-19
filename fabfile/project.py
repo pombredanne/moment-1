@@ -171,7 +171,6 @@ def ensure_gunicorn():
         'APP_PORT': PROJECT['APP_PORT'],
         'APP_TIMEOUT': PROJECT['APP_TIMEOUT'],
         'APP_WSGI': PROJECT['APP_WSGI'],
-        'APP_DEBUG': PROJECT['APP_DEBUG'],
         'APP_WORKERS': PROJECT['APP_WORKERS'],
         'LOCATION': MACHINE['LOCATION'],
         'PORT': MACHINE['PORT'],
