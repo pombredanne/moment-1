@@ -59,7 +59,7 @@ gunicorn_supervisor = """; Generated via Fabric on ${ACTION_DATE}
 
 command=${PROJECT_ENV}/bin/gunicorn ${APP_WSGI} --bind ${APP_LOCATION}:${APP_PORT} --workers ${APP_WORKERS} --timeout ${APP_TIMEOUT} --access-logfile ${ACCESS_LOG} --error-logfile ${ERROR_LOG}
 
-environment=PATH="$PATH:${PROJECT_ENV}/bin"
+environment=PATH="$PATH:/usr/bin:${PROJECT_ENV}/bin"
 directory=${PROJECT_ROOT}
 user=${KEY}
 autostart=true
