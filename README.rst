@@ -71,6 +71,7 @@ Some example captures:
 * `The Public Knowledge Workshop`_
 * `Education Expenditure from Open Budget Comparator`_
 * `Map Chart from the Google Charts Gallery`_
+* `Map from Open Taba`_
 * `D3 Voronoi Tesselation`_
 * `YouTube Featured Videos Section`_
 * `Ynet (Israeli Tabloid)`_
@@ -85,8 +86,8 @@ Setting up an instance
 * Clone the repo into your project folder: e.g: 'git clone git@github.com:pwalsh/moment.git .'
 * Install the pip-managed requirements: 'pip install -r -U requirements.txt'
 * Run the server. You can run Flask's development server for debugging with: 'python dev.py' from the project root. Alternatively, Run Gunicorn with 'gunicorn moment:app'
-* Visit 127.0.0.1:9000 in your browser.
-* Currently, only the /capture/ endpoint is implemented. This is a convenience endpoint that any user can hit with a set of parameters, and have a file returned. See examples above for how to construct a query to /capture.
+* Visit 127.0.0.1:9000 in your browser
+* Currently, only the /capture/ endpoint is implemented. This is a convenience endpoint that any user can hit with a set of parameters, and have a file returned. See examples above for how to construct a query to /capture/
 
 .. _Python: http://python.org/download/releases/2.7.5/
 .. _CasperJS: http://casperjs.org/
@@ -104,5 +105,5 @@ Setting up an instance
 .. _D3 Voronoi Tesselation: http://moment.prjts.com/capture/?user=c413c0979c2c42bbbc1adb3c55797851&token=6cdf4a492ecd4500ec80b6f4d95d0529&url=http://bl.ocks.org/mbostock/4060366&target=iframe
 .. _YouTube Featured Videos Section: http://moment.prjts.com/capture/?user=c413c0979c2c42bbbc1adb3c55797851&token=6cdf4a492ecd4500ec80b6f4d95d0529&url=http://www.youtube.com/&target=.lohp-newspaper-shelf
 .. _Sydney Morning Herald (Australian Tabloid): http://moment.prjts.com/capture/?user=c413c0979c2c42bbbc1adb3c55797851&token=6cdf4a492ecd4500ec80b6f4d95d0529&url=http://www.smh.com.au
-
+.. _Map from Open Taba: http://moment.prjts.com/capture/?user=c413c0979c2c42bbbc1adb3c55797851&token=6cdf4a492ecd4500ec80b6f4d95d0529&url=http://opentaba.info/%23/gush/30159&target=%23map
 
