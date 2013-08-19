@@ -63,6 +63,20 @@ If you need to use '?' or '#' symbols as values in the query - that is fine, jus
 * ? : %3F
 * # : %23
 
+Examples
+++++++++
+
+Some example captures:
+
+* `The Public Knowledge Workshop`_
+* `Education Expenditure from Open Budget Comparator`_
+* `Map Chart from the Google Charts Gallery`_
+* `D3 Voronoi Tesselation`_
+* `YouTube Featured Videos Section`_
+* `Ynet (Israeli Tabloid)`_
+* `Sydney Morning Herald (Australian Tabloid)`_
+
+
 Setting up an instance
 ----------------------
 
@@ -83,3 +97,12 @@ Setting up an instance
 .. _Code: https://github.com/pwalsh/moment
 .. _Issues: https://github.com/pwalsh/moment/issues?state=open
 .. _Demo: http://moment.prjts.com/
+.. _The Public Knowledge Workshop: http://moment.prjts.com/capture/?user=c413c0979c2c42bbbc1adb3c55797851&token=6cdf4a492ecd4500ec80b6f4d95d0529&url=http://www.hasadna.org.il/
+.. _Education Expenditure from Open Budget Comparator: http://moment.prjts.com/capture/?user=c413c0979c2c42bbbc1adb3c55797851&token=6cdf4a492ecd4500ec80b6f4d95d0529&url=http://compare.open-budget.org.il/%3F00/0020&target=.frame
+.. _Ynet (Israeli Tabloid): http://moment.prjts.com/capture/?user=c413c0979c2c42bbbc1adb3c55797851&token=6cdf4a492ecd4500ec80b6f4d95d0529&url=http://www.ynet.co.il/
+.. _Map Chart from the Google Charts Gallery: http://moment.prjts.com/capture/?user=c413c0979c2c42bbbc1adb3c55797851&token=6cdf4a492ecd4500ec80b6f4d95d0529&url=https://google-developers.appspot.com/chart/interactive/docs/gallery/geochart%23Example&target=.framebox
+.. _D3 Voronoi Tesselation: http://moment.prjts.com/capture/?user=c413c0979c2c42bbbc1adb3c55797851&token=6cdf4a492ecd4500ec80b6f4d95d0529&url=http://bl.ocks.org/mbostock/4060366&target=iframe
+.. _YouTube Featured Videos Section: http://moment.prjts.com/capture/?user=c413c0979c2c42bbbc1adb3c55797851&token=6cdf4a492ecd4500ec80b6f4d95d0529&url=http://www.youtube.com/&target=.lohp-newspaper-shelf
+.. _Sydney Morning Herald (Australian Tabloid): http://moment.prjts.com/capture/?user=c413c0979c2c42bbbc1adb3c55797851&token=6cdf4a492ecd4500ec80b6f4d95d0529&url=http://www.smh.com.au
+
+
