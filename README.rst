@@ -94,15 +94,14 @@ Create a user
 
 There is no web API for creating a user at present. To create user's on your own Moment instance, call the create_user function from Python like so:
 
-python
+.. code-block:: python
 
-from moment.models import create_user
-
-u = create_user(username="username")
+    >>> from moment.models import create_user
+    >>> u = create_user(username="username")
 
 create_user returns a tuple of the user's key and token.
 
-The user's key is of the format "moment,user,UUID"
+The user's key is of the format "moment,user,UUID" (that's a string, used as a redis key).
 
 On the /capture/ endpoint, you only use the UUID part of the user's key for the ?user parameter.
 
