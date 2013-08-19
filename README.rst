@@ -89,6 +89,25 @@ Setting up an instance
 * Visit 127.0.0.1:9000 in your browser
 * Currently, only the /capture/ endpoint is implemented. This is a convenience endpoint that any user can hit with a set of parameters, and have a file returned. See examples above for how to construct a query to /capture/
 
+Create a user
+-------------
+
+There is no web API for creating a user at present. To create user's on your own Moment instance, call the create_user function from Python like so:
+
+python
+
+from moment.models import create_user
+
+u = create_user(username="username")
+
+create_user returns a tuple of the user's key and token.
+
+The user's key is of the format "moment,user,UUID"
+
+On the /capture/ endpoint, you only use the UUID part of the user's key for the ?user parameter.
+
+
+
 .. _Python: http://python.org/download/releases/2.7.5/
 .. _CasperJS: http://casperjs.org/
 .. _PhantomJS: http://phantomjs.org/
