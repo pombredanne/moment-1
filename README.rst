@@ -73,6 +73,8 @@ Some example captures:
 * `Map Chart from the Google Charts Gallery`_
 * `Map from Open Taba`_
 * `D3 Voronoi Tesselation`_
+* `Dead Sea Scrolls Feature Snippet`_
+* `Dead Sea Scrolls Historical Timeline (as PDF)`_
 * `YouTube Featured Videos Section`_
 * `Ynet (Israeli Tabloid)`_
 * `Sydney Morning Herald (Australian Tabloid)`_
@@ -123,4 +125,7 @@ On the /capture/ endpoint, you only use the UUID part of the user's key for the 
 .. _YouTube Featured Videos Section: http://moment.prjts.com/capture/?user=c413c0979c2c42bbbc1adb3c55797851&token=6cdf4a492ecd4500ec80b6f4d95d0529&url=http://www.youtube.com/&target=.lohp-newspaper-shelf
 .. _Sydney Morning Herald (Australian Tabloid): http://moment.prjts.com/capture/?user=c413c0979c2c42bbbc1adb3c55797851&token=6cdf4a492ecd4500ec80b6f4d95d0529&url=http://www.smh.com.au
 .. _Map from Open Taba: http://moment.prjts.com/capture/?user=c413c0979c2c42bbbc1adb3c55797851&token=6cdf4a492ecd4500ec80b6f4d95d0529&url=http://opentaba.info/%23/gush/30159&target=%23map
+.. _Dead Sea Scrolls Feature Snippet: http://moment.prjts.com/capture/?user=c413c0979c2c42bbbc1adb3c55797851&token=6cdf4a492ecd4500ec80b6f4d95d0529&url=http://www.deadseascrolls.org.il/featured-scrolls&target=%23the-book-of-war
+.. _Dead Sea Scrolls Historical Timeline (as PDF): http://moment.prjts.com/capture/?user=c413c0979c2c42bbbc1adb3c55797851&token=6cdf4a492ecd4500ec80b6f4d95d0529&url=http://www.deadseascrolls.org.il/learn-about-the-scrolls/historical-timeline&format=pdf
+
 
