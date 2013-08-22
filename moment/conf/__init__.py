@@ -24,7 +24,7 @@ REDIS = {
 REDIS_URL = 'redis://' + REDIS['HOST'] + ':' + unicode(REDIS['PORT']) + '/' + \
             unicode(REDIS['DB'])
 
-REDIS_KEY_PREFIX = 'moment,'
+REDIS_KEY_PREFIX = 'moment::'
 
 PHANTOM = '/usr/local/bin/phantomjs'
 
