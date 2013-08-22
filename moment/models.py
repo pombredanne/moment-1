@@ -15,6 +15,7 @@ class Model(object):
     """Exposes the common structure of our data models."""
 
     prefix = None
+
     fields = (('', ''),)
 
     def __init__(self, request_params=None, **kwargs):
@@ -75,6 +76,7 @@ class User(Model):
     """Methods for working with user data."""
 
     prefix = USER_KEY_PREFIX
+
     fields = (
         ('username', ''),
         ('secret', ''),
@@ -145,35 +147,34 @@ class Capture(Model):
     """Methods for working with capture data."""
 
     prefix = CAPTURE_KEY_PREFIX
+
     fields = (
-        ('user', ''),  # 'moment::user::02113517b2274146866de6f69a3f2e19'
+        ('user', ''),  # 'uuid' segment of user key
         ('url', ''),  # 'http://www.example.com/'
         ('target', 'body'),  # '#content' or 'body' or '.account-widget'
-        ('format', 'png'),  # 'pdf' or 'png'
+        ('format', 'png'),  # 'pdf' or 'png' or 'jpg' or 'gif'
         ('viewport', '1280,800'),  # '1280,800' or '1280' or 'viewport_keyword'
-        ('full', True),  # 'true' or 'false'
-        ('thumb', ''),  # '250,250'
-        ('crop', ''),  # 'x,y,square'
+        ('full', 'true'),  # 'true' or 'false'. false clips to viewport height.
+        ('thumb', ''),  # 'width,height,position' or 'width,height,x,y'
+        ('crop', ''),  # 'width,height,position' or 'width,height,x,y'
         ('unique', ''),  # 'any_unique_string' [e.g.] '2013-03-28T11:27:48.571Z'
         ('delay', '300'),  # 'int' [e.g.] '300' - wait for capture
+        ('quality', '100'),  # 'int'
+        ('events', ''),  # 'event,selector[,delay]' or 'event,x,y[,delay]' - chain with '+'
+        ('renderer', 'webkit')  # 'webkit' or 'gecko'
     )
+
     viewport_keywords = [
-        {
-            'iphone4-portrait': '320,480'
-        },
-        {
-            'iphone4-landscape': '480,320'
-        },
-        {
-            'tablet-portrait': '768,1024'
-        },
-        {
-            'tablet-landscape': '1024,768'
-        },
-        {
-            'macbook-pro': '1280,800'
-        }
+        {'iphone4-portrait' : '320,480'},
+        {'iphone4-landscape': '480,320'},
+        {'tablet-portrait'  : '768,1024'},
+        {'tablet-landscape' : '1024,768'},
+        {'macbook-pro'      : '1280,800'}
     ]
+
+    engine = 'phantomjs'
+
+    engine_loglevel = 'debug'
 
     def put(self, image):
         """Create a capture object."""
@@ -207,12 +208,29 @@ class Capture(Model):
         """
 
         filename = '{key}.{format}'.format(key=self.get_key().lstrip(self.prefix),
-                                          format=self.arguments['format'])
+                                           format=self.arguments['format'])
 
         image = os.path.join(conf.CAPTURES_ROOT, filename)
 
-        params = [conf.CASPER, conf.CAPTURE_SCRIPT, self.arguments['url'],
-                  image, self.arguments['viewport'], self.arguments['target']]
+        if self.arguments['renderer'] == 'gecko':
+
+            self.engine = 'slimerjs'
+
+        params = [conf.CASPER,
+                  '--log-level={level}'.format(level=self.engine_loglevel),
+                  '--engine={engine}'.format(engine=self.engine),
+                  conf.CAPTURE_SCRIPT,
+                  image,
+                  self.arguments['url'],
+                  self.arguments['viewport'],
+                  self.arguments['target'],
+                  self.arguments['full'],
+                  self.arguments['crop'],
+                  self.arguments['delay'],
+                  self.arguments['events'],
+                  self.arguments['quality'],
+                  self.arguments['thumb'],
+        ]
 
         casper = subprocess.Popen(params, stdout=subprocess.PIPE,
                                   stderr=subprocess.PIPE)
