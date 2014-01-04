@@ -108,6 +108,21 @@ The user's key is of the format "moment,user,UUID" (that's a string, used as a r
 On the /capture/ endpoint, you only use the UUID part of the user's key for the ?user parameter.
 
 
+Database
+--------
+
+Moment uses Redis as a database. This makes serving very fast (after the first capture), but it does mean that the data is modeled in a way that may seem unusual when coming from a relational database perspective.
+
+The keys for our data do use keywords to identify the modeled data they contain.
+
+The following pattern is implemented:
+
+**Project namespace**
+
+Set with the REDIS_KEY_PREFIX variable in the project configuration.
+
+The
+
 .. _Python: http://python.org/download/releases/2.7.5/
 .. _CasperJS: http://casperjs.org/
 .. _PhantomJS: http://phantomjs.org/
