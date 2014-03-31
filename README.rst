@@ -1,6 +1,8 @@
 Moment
 ======
 
+**Note**: 31/3/2014 - I'm working on a greatly enhanced version of Moment. The current code works well for what it does and is free for forking. This repo will be updated in the nearish future.
+
 A simple screen capture API based on PhantomJS, CasperJS, Redis, RQ, Flask, Gunicorn and good intentions...
 
 We're just sitting on the shoulders of giants.
@@ -31,7 +33,7 @@ We'd like to complete the following, and only the following, to be feature compl
 Capturing
 ---------
 
-We have a demo_ setup with a test user. Please make some test captures, and if you have any issues, please file a bug_.
+We *did* have a demo_ setup with a test user. Please make some test captures, and if you have any issues, please file a bug_.
 
 Here are the temporary credentials:
 
@@ -66,7 +68,7 @@ If you need to use '?' or '#' symbols as values in the query - that is fine, jus
 Examples
 ++++++++
 
-Some example captures:
+Some example captures (no longer working):
 
 * `The Public Knowledge Workshop`_
 * `Education Expenditure from Open Budget Comparator`_
